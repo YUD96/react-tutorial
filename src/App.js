@@ -1,10 +1,22 @@
 import { useState } from "react";
+import { Box, Button, ListItemButton, ListItemText } from "@mui/material";
 
 function Square({ value, onSquareClick }) {
   return (
-    <button className="square" onClick={onSquareClick}>
+    <Button
+      className="square"
+      sx={{
+        height: "34px",
+        fontSize: "24px",
+        fontWeight: "bold",
+        background: "#ffff",
+        border: "1px solid #999",
+        borderRadius: "0px",
+      }}
+      onClick={onSquareClick}
+    >
       {value}
-    </button>
+    </Button>
   );
 }
 
@@ -32,22 +44,22 @@ function Board({ xIsNext, squares, onPlay }) {
 
   return (
     <>
-      <div className="status">{status}</div>
-      <div className="board-row">
+      <Box className="status">{status}</Box>
+      <Box className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
         <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-      <div className="board-row">
+      </Box>
+      <Box className="board-row">
         <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
         <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
         <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div className="board-row">
+      </Box>
+      <Box className="board-row">
         <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
         <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
         <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
+      </Box>
     </>
   );
 }
@@ -77,21 +89,28 @@ export default function Game() {
     }
 
     return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
-      </li>
+      <ListItemButton
+        key={move}
+        sx={{
+          backgroundColor: "#e0e0e0",
+          border: "1px solid #999",
+        }}
+        onClick={() => jumpTo(move)}
+      >
+        <ListItemText primary={description} />
+      </ListItemButton>
     );
   });
 
   return (
-    <div className="game">
-      <div className="game-board">
+    <Box className="game">
+      <Box className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
-      </div>
-      <div className="game-info">
+      </Box>
+      <Box className="game-info">
         <ol>{moves}</ol>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
