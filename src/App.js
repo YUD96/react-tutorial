@@ -2,8 +2,12 @@ import { useState } from "react";
 import {
   Box,
   Button,
+  FormControlLabel,
+  FormLabel,
   ListItemButton,
   ListItemText,
+  Radio,
+  RadioGroup,
   Typography,
 } from "@mui/material";
 
@@ -77,6 +81,7 @@ function Board({ xIsNext, squares, onPlay }) {
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
+  const [isAsc, setIsAsc] = useState(true);
   const currentSquares = history[currentMove];
   const xIsNext = currentMove % 2 === 0;
 
@@ -84,6 +89,10 @@ export default function Game() {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+  }
+
+  function handleSortButtonClick(ascending) {
+    ascending === true ? setIsAsc(true) : setIsAsc(false);
   }
 
   function jumpTo(nextMove) {
@@ -132,12 +141,35 @@ export default function Game() {
     );
   });
 
+  if (!isAsc) moves.reverse();
   return (
     <Box className="game">
       <Box className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </Box>
       <Box className="game-info">
+        <Box sx={{ pl: 5 }} className="sort-toggle">
+          <FormLabel id="demo-row-radio-buttons-group-label">並び順</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel
+              value="昇順"
+              control={<Radio />}
+              label="昇順"
+              onChange={() => handleSortButtonClick(true)}
+            />
+
+            <FormControlLabel
+              value="降順"
+              control={<Radio />}
+              label="降順"
+              onChange={() => handleSortButtonClick(false)}
+            />
+          </RadioGroup>
+        </Box>
         <ol>{moves}</ol>
       </Box>
     </Box>
