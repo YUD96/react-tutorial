@@ -48,24 +48,29 @@ function Board({ xIsNext, squares, onPlay }) {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
 
+  const board = [...Array(3)].map((_, i) => {
+    let threeSquares = [...Array(3)].map((_, j) => {
+      let n = 3 * i + j;
+      return (
+        <Square
+          key={n}
+          value={squares[n]}
+          onSquareClick={() => handleClick(n)}
+        />
+      );
+    });
+    return (
+      <Box key={i} className="box-row">
+        {threeSquares}
+      </Box>
+    );
+  });
+  console.log(board);
+
   return (
     <>
       <Box className="status">{status}</Box>
-      <Box className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </Box>
-      <Box className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </Box>
-      <Box className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </Box>
+      {board}
     </>
   );
 }
