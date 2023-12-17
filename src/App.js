@@ -65,7 +65,6 @@ function Board({ xIsNext, squares, onPlay }) {
       </Box>
     );
   });
-  console.log(board);
 
   return (
     <>
