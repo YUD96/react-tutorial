@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Box, Button, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Box,
+  Button,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 
 function Square({ value, onSquareClick }) {
   return (
@@ -89,16 +95,36 @@ export default function Game() {
     }
 
     return (
-      <ListItemButton
-        key={move}
-        sx={{
-          backgroundColor: "#e0e0e0",
-          border: "1px solid #999",
-        }}
-        onClick={() => jumpTo(move)}
-      >
-        <ListItemText primary={description} />
-      </ListItemButton>
+      <>
+        {move === currentMove ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              px: 1,
+              py: 2,
+              height: "50px",
+              color: "red",
+              backgroundColor: "#e0e0e0",
+              border: "1px solid #999",
+            }}
+          >
+            <Typography>You are at move #{move}</Typography>
+          </Box>
+        ) : (
+          <ListItemButton
+            key={move}
+            sx={{
+              backgroundColor: "#e0e0e0",
+              border: "1px solid #999",
+            }}
+            onClick={() => jumpTo(move)}
+          >
+            <ListItemText primary={description} />
+          </ListItemButton>
+        )}
+      </>
     );
   });
 
