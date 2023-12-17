@@ -41,7 +41,7 @@ export default function Game() {
     }
 
     return (
-      <>
+      <Box key={move}>
         {move === currentMove ? (
           <Box
             sx={{
@@ -70,7 +70,7 @@ export default function Game() {
             <ListItemText primary={description} />
           </ListItemButton>
         )}
-      </>
+      </Box>
     );
   });
 
