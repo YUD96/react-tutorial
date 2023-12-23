@@ -1,6 +1,11 @@
 import { Button } from "@mui/material";
 
-export default function Square({ value, onSquareClick }) {
+interface SquareProps {
+  value: string;
+  onSquareClick: () => void;
+}
+
+export default function Square({ value, onSquareClick }: SquareProps) {
   return (
     <Button
       className="square"

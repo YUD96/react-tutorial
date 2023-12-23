@@ -11,24 +11,27 @@ import {
 } from "@mui/material";
 import Board from "./Board";
 
-export default function Game() {
-  const [history, setHistory] = useState([Array(9).fill(null)]);
+const Game = () => {
+  const [history, setHistory] = useState<string[][]>([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [isAsc, setIsAsc] = useState(true);
   const currentSquares = history[currentMove];
   const xIsNext = currentMove % 2 === 0;
 
-  function handlePlay(nextSquares) {
-    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+  function handlePlay(nextSquares: Array<string>) {
+    const nextHistory: any = [
+      ...history.slice(0, currentMove + 1),
+      nextSquares,
+    ];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
 
-  function handleSortButtonClick(ascending) {
-    ascending === true ? setIsAsc(true) : setIsAsc(false);
+  function handleSortButtonClick(ascending: boolean) {
+    ascending ? setIsAsc(true) : setIsAsc(false);
   }
 
-  function jumpTo(nextMove) {
+  function jumpTo(nextMove: number) {
     setCurrentMove(nextMove);
   }
 
@@ -107,4 +110,6 @@ export default function Game() {
       </Box>
     </Box>
   );
-}
+};
+
+export default Game;
