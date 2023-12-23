@@ -1,8 +1,14 @@
 import { Box } from "@mui/material";
 import Square from "./Square";
 
-export default function Board({ xIsNext, squares, onPlay }) {
-  function handleClick(i) {
+type Props = {
+  xIsNext: boolean;
+  squares: string[];
+  onPlay: (nextSquares: string[]) => void;
+};
+
+const Board = ({ xIsNext, squares, onPlay }: Props) => {
+  function handleClick(i: number) {
     if (squares[i] || calculateWinner(squares)) {
       return;
     }
@@ -47,9 +53,9 @@ export default function Board({ xIsNext, squares, onPlay }) {
       {board}
     </>
   );
-}
+};
 
-function calculateWinner(squares) {
+function calculateWinner(squares: Array<String | null>) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -68,3 +74,5 @@ function calculateWinner(squares) {
   }
   return null;
 }
+
+export default Board;
